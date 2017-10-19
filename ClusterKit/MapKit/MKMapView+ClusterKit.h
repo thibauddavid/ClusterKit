@@ -31,6 +31,12 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MKMapView (ClusterKit) <CKMap>
 
 /**
+ * An optional block to perform remove cluster animation with
+ * MapKit only (doesn't provide built-in delegate method to animated annotation removal)
+ */
+@property (copy) void (^removeClustersAnimation) (NSArray<CKCluster *> *clusters, void (^completion)(BOOL));
+
+/**
  Shows the specified cluster centered on screen at the greatest possible zoom level.
  
  @param cluster  The cluster to show.

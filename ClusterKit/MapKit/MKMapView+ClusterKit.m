@@ -58,7 +58,14 @@
 }
 
 - (void)removeClusters:(NSArray<CKCluster *> *)clusters {
-    [self removeAnnotations:clusters];
+    if (self.removeClustersAnimation) {
+        __weak typeof(self) weakSelf = self;
+        self.removeClustersAnimation(clusters, ^(BOOL finished) {
+            [weakSelf removeAnnotations:clusters];
+        });
+    } else {
+        [self removeAnnotations:clusters];
+    }
 }
 
 - (void)performAnimations:(NSArray<CKClusterAnimation *> *)animations completion:(void (^__nullable)(BOOL finished))completion {
